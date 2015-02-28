@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>E3746432-4189-4F0C-BFD5-E65815CE6EC7</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Run Sense</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>B34AFFE12702A1B4758EE82E72C973A5EC57651D</key>
+		<string>https://github.com/pleopard93/hack-dfw.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Run Sense/Run Sense.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>B34AFFE12702A1B4758EE82E72C973A5EC57651D</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/pleopard93/hack-dfw.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>B34AFFE12702A1B4758EE82E72C973A5EC57651D</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>B34AFFE12702A1B4758EE82E72C973A5EC57651D</string>
+			<key>IDESourceControlWCCName</key>
+			<string>hack-dfw</string>
+		</dict>
+	</array>
+</dict>
+</plist>
