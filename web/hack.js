@@ -15,14 +15,30 @@ function signInButton(){
 }
 
 function createAccountSubmit(){
-  window.location.href = "runSenseHome.html";
-  userId = $("#create-account-form").ajaxForm({url: 'api/index.php/newUser', type: 'post'})["UserId"];
-  //make sure this gets called
+  signUpSubmit();
 }
 //***********************************
 function signUpSubmit(){
   window.location.href = "runSenseHome.html";
-  userId = $("#create-account-form").ajaxForm({url: 'api/index.php/newUser', type: 'post'})["UserId"];
+  var email = $("#email").val();
+  var password = $("#password").val();
+
+  $.ajax({
+    type: "POST",
+    url: "/api/index.php/newUser",
+    dataType: "json",
+    data: {"Name": email,
+           "Email": email,
+           "Password": password
+          },
+    success: function( data ){
+        userId = data["UserId"];
+      },
+      error: function (jqXHR, textStatus, errorThrown){
+        console.log(jqXHR + ", " + textStatus + ", " + errorThrown)
+      }
+    }
+  });
   //make sure this gets called
 }
 
