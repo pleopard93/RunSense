@@ -13,6 +13,10 @@ body {
 	width: 80%;
 	text-align: center;	
 	margin: 5% 10%;
+	font-family: 'Raleway', sans-serif;
+	padding: 5%;
+	border-radius: 10px;
+	background-color: rgba(255, 255, 255, 0.4);
 }
 
 .title {
@@ -27,17 +31,19 @@ body {
 }
 
 .account-button {
-	border:1px solid green;
+	border:1px solid #444444;
 	width: 15%;
 	height: 50px;
 	margin: 0 1%;
 	font-size: 1.2em;
-	background-color: #CCEECC;
+	background-color: #33337F;
+	color: white;
 }
 
 .account-button:hover{
-	background-color: #DDFFDD;
-	border:1px solid green;
+	background-color: #55559F;
+	border:1px solid #000080;
+	color: white;
 }
 
 .hidden {
@@ -58,7 +64,7 @@ body {
 }
 
 .section-border {
-	border: 1px solid green;
+	border: 1px solid #444444;
 	border-radius: 10px;
 	padding-top: 2%;
 	padding-bottom: 3%;
@@ -71,16 +77,28 @@ body {
 .data-container {
 	width: 90%;
 	margin: 25px auto;
-	padding: 3%;
-	border: 1px solid #DDDDDD;
+	/*padding: 3%;*/
+	/*border: 1px solid #DDDDDD;*/
+	/*background-color: rgba(255, 255, 255, 0.3);*/
 	border-radius: 10px;
 }
 
 h1, h3 {
-	color: #446622;
+	color: #00004C;
 }
 
 h2 {
-	color: #BBBB99;
 	text-align: left;
+}
+
+#ex3 {
+	background-color: rgba(255, 255, 255, 0.4);
+}
+
+#ex2 {
+	background-color: rgba(255, 255, 255, 0.4);
+}
+
+#slogan {
+	margin-top: 8%;
 }

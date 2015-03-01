@@ -54,6 +54,7 @@ function removeSignUpButtons(){
 
       var options = {
         width: 800,
+        backgroundColor:'transparent',
         height: 492,
         hAxis: {
           title: 'Step'
@@ -61,7 +62,7 @@ function removeSignUpButtons(){
         vAxis: {
           title: 'Severity'
         },
-        colors: ['#a52714', '#097138']
+        colors: ['#55559F', '#F95555']
       };
 
       var chart = new google.visualization.LineChart(document.getElementById('ex3'));
