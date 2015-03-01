@@ -6,7 +6,7 @@ body {
 
 .body-wrapper {
 	background-attachment: fixed;
-	background-image: url(../img/bg.png) no-repeat bottom center;
+	background-image: url(img/bg.png) no-repeat bottom center;
 	background-repeat: no-repeat;
 	background-size: 25em, 25em, auto, cover;
 	-webkit-background-size: cover;

@@ -3,41 +3,43 @@
 
 <head>
 	<title>Run Sense</title>
-	<link rel="stylesheet" href="bootstrap.min.css">
-	<link rel="stylesheet" href="hack.css">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/hack.css">
 	<script type="text/javascript" src="jquery-1.8.3.min.js"></script>
 	<script type="text/javascript" src="hack.js"></script>
 </head>
 
 <body>
-	<div class="title section-border">
-		<h1 id="runsense-title">Run Sense</h1>
-	</div>
-	<div class="sign-up">
-		<button type="button" class="btn btn-default account-button" onclick="signInButton()">Sign In</button>
-		<button type="button" class="btn btn-default account-button" onclick="createAccountButton()">Create Account</button>
-	</div>
-	<div class="hidden" id="create-account-hidden-form">
-		<form id="create-account-form">
-			<input type="text" class="form-control" placeholder="Name">
-			<br>
-			<input type="text" class="form-control" placeholder="Email">
-			<br>
-			<input type="password" class="form-control" placeholder="Password" name="password" id="password">
-			<br>
-			<input type="password" class="form-control" placeholder="Confirm Password" name="confirm-password" id="confirm-password">
-			<br>
-			<input type="submit" class="btn btn-success">
-		</form> 
-	</div>
-	<div class="hidden" id="sign-in-hidden-form">
-		<form id="sign-in-form">
-			<input type="text" class="form-control" placeholder="Email">
-			<br>
-			<input type="password" class="form-control" placeholder="Password">
-			<br>
-			<input type="submit" class="btn btn-success" onclick="createAccountSubmit">
-		</form> 
+	<div class="body-wrapper">
+		<div class="title section-border">
+			<h1 id="runsense-title">Run Sense</h1>
+		</div>
+		<div class="sign-up">
+			<button type="button" class="btn btn-default account-button" onclick="signInButton()">Sign In</button>
+			<button type="button" class="btn btn-default account-button" onclick="createAccountButton()">Create Account</button>
+		</div>
+		<div class="hidden" id="create-account-hidden-form">
+			<form id="create-account-form">
+				<input type="text" class="form-control" placeholder="Name">
+				<br>
+				<input type="text" class="form-control" placeholder="Email">
+				<br>
+				<input type="password" class="form-control" placeholder="Password" name="password" id="password">
+				<br>
+				<input type="password" class="form-control" placeholder="Confirm Password" name="confirm-password" id="confirm-password">
+				<br>
+				<input type="submit" class="btn btn-success">
+			</form> 
+		</div>
+		<div class="hidden" id="sign-in-hidden-form">
+			<form id="sign-in-form">
+				<input type="text" class="form-control" placeholder="Email">
+				<br>
+				<input type="password" class="form-control" placeholder="Password">
+				<br>
+				<input type="submit" class="btn btn-success" onclick="createAccountSubmit">
+			</form> 
+		</div>
 	</div>
 </body>
 
