@@ -15,14 +15,15 @@ function signInButton(){
 }
 
 function createAccountSubmit(){
-  alert("made it");
   window.location.href = "runSenseHome.html";
   $("#create-account-form").ajaxForm({url: 'api/index.php/newUser', type: 'post'});
-  
+  //make sure this gets called
 }
 
 function signUpSubmit(){
-
+  window.location.href = "runSenseHome.html";
+  $("#create-account-form").ajaxForm({url: 'api/index.php/newUser', type: 'post'});
+  //make sure this gets called
 }
 
 function removeSignUpButtons(){
@@ -90,14 +91,15 @@ function drawChart() {
   //DATA
 
   var data_points = [];
+  var steps = [];
   $.get("api/index.php/getRun", function( data ){
-    for (var i = 0; i < data.length; i++){
+    steps = data["stepList"];
+    for (var i = 0; i < steps.length; i++){
       var data_point = [];
       data_point.push(i);
-      first_point = run_data['heelStrike'];
-      second_point = run_data['pronate'];
-      data_points.push(first_point);
-      data_points.push(second_point);
+      var metrics = steps[i]["metrics"];
+      data_point.push(metrics["d1"]);
+      data_point.push(metrics["d2"]);
     }
   });
   run_data.addRows(data_points);
@@ -112,14 +114,15 @@ function drawChart() {
   //DATA
 
   data_points = [];
+  steps = [];
   $.get("api/index.php/getAllRuns", function( data ){
+    steps = data["stepList"];
     for (var i = 0; i < data.length; i++){
       var data_point = [];
       data_point.push(i);
-      first_point = total_data['heelStrike'];
-      second_point = total_data['pronate'];
-      data_points.push(first_point);
-      data_points.push(second_point);
+      var metrics = steps[i]["metrics"];
+      data_point.push(metrics["d1"]);
+      data_point.push(metrics["d2"]);
     }
   });
   run_data.addRows(data_points);
