@@ -16,13 +16,13 @@ function signInButton(){
 
 function createAccountSubmit(){
   window.location.href = "runSenseHome.html";
-  $("#create-account-form").ajaxForm({url: 'api/index.php/newUser', type: 'post'});
+  userId = $("#create-account-form").ajaxForm({url: 'api/index.php/newUser', type: 'post'})["UserId"];
   //make sure this gets called
 }
-
+//***********************************
 function signUpSubmit(){
   window.location.href = "runSenseHome.html";
-  $("#create-account-form").ajaxForm({url: 'api/index.php/newUser', type: 'post'});
+  userId = $("#create-account-form").ajaxForm({url: 'api/index.php/newUser', type: 'post'})["UserId"];
   //make sure this gets called
 }
 
@@ -47,7 +47,7 @@ function merge(left, right)
     var result = [];
  
     while (left.length && right.length) {
-        if (left[0]["stepNumber"] <= right[0]["stepNumber"]) {
+        if (left[0]["StepNumber"] <= right[0]["StepNumber"]) {
             result.push(left.shift());
         } else {
             result.push(right.shift());
@@ -125,15 +125,21 @@ function drawChart() {
 
   var data_points = [];
   var steps = [];
-  $.get("api/index.php/getRun", function( data ){
-    steps = mergeSort(data["stepList"]);
-    for (var i = 0; i < steps.length; i++){
-      var data_point = [];
-      data_point.push(i);
-      var metrics = steps[i]["metrics"];
-      data_point.push(metrics["d1"]);
-      data_point.push(metrics["d2"]);
-      data_points.push(data_point);
+  $.ajax({
+    type: "GET",
+    url: "/api/index.php/getRun",
+    dataType: "json",
+    data: {"UserID": userId},
+    success: function( data ){
+      steps = mergeSort(data["StepList"]);
+      for (var i = 0; i < steps.length; i++){
+        var data_point = [];
+        data_point.push(i);
+        var metrics = steps[i]["Metrics"];
+        data_point.push(metrics["d1"]);
+        data_point.push(metrics["d2"]);
+        data_points.push(data_point);
+      }
     }
   });
   run_data.addRows(data_points);
@@ -149,15 +155,21 @@ function drawChart() {
 
   data_points = [];
   steps = [];
-  $.get("api/index.php/getAllRuns", function( data ){
-    steps = data["stepList"];
-    for (var i = 0; i < data.length; i++){
-      var data_point = [];
-      data_point.push(i);
-      var metrics = steps[i]["metrics"];
-      data_point.push(metrics["d1"]);
-      data_point.push(metrics["d2"]);
-      data_points.push(data_point);
+  $.ajax({
+    type: "GET",
+    url: "/api/index.php/getAllRuns",
+    dataType: "json",
+    data: {"UserID": userId},
+    success: function( data ){
+      steps = mergeSort(data["StepList"]);
+      for (var i = 0; i < steps.length; i++){
+        var data_point = [];
+        data_point.push(i);
+        var metrics = steps[i]["Metrics"];
+        data_point.push(metrics["d1"]);
+        data_point.push(metrics["d2"]);
+        data_points.push(data_point);
+      }
     }
   });
   run_data.addRows(data_points);
