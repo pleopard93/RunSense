@@ -7,9 +7,24 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Definitions.h"
+#import "BLE.h"
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController <BLEDelegate>
+{
+    NSArray *totalStepsArray;
+    NSMutableArray *rollingStepsArray;
+    int heelCount;
+    int leftBallCount;
+    int rightBallCount;
+}
 
+@property (weak, nonatomic) IBOutlet UILabel *leftBallLabel;
+@property (weak, nonatomic) IBOutlet UILabel *rightBallLabel;
+@property (weak, nonatomic) IBOutlet UILabel *heelLabel;
+@property (weak, nonatomic) IBOutlet UIButton *connectButton;
+
+- (IBAction)pushConnectButton:(id)sender;
 
 @end
 
