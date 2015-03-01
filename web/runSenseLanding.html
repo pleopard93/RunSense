@@ -8,6 +8,13 @@
 	<link rel="stylesheet" href="css/hack.css">
 	<script type="text/javascript" src="jquery-1.8.3.min.js"></script>
 	<script type="text/javascript" src="hack.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#slogan').fadeTo(0, 0).delay(100).fadeTo(3000, 1);
+			$('.account-button').fadeTo(0, 0).delay(100).fadeTo(3000, 1);
+		});
+	</script>
+
 </head>
 
 <body>
@@ -23,7 +30,7 @@
 			<button type="button" class="btn btn-default account-button" onclick="createAccountButton()">Create Account</button>
 		</div>
 		<div class="hidden" id="create-account-hidden-form">
-			<form id="create-account-form">
+			<form id="create-account-form" action="index.php/newUser" method="get">
 				<input type="text" class="form-control" placeholder="Name">
 				<br>
 				<input type="text" class="form-control" placeholder="Email">
@@ -36,12 +43,12 @@
 			</form> 
 		</div>
 		<div class="hidden" id="sign-in-hidden-form">
-			<form id="sign-in-form">
+			<form id="sign-in-form" action="index.php/newUser" method="get">
 				<input type="text" class="form-control" placeholder="Email">
 				<br>
 				<input type="password" class="form-control" placeholder="Password">
 				<br>
-				<input type="submit" class="btn btn-default" onclick="createAccountSubmit">
+				<input type="submit" class="btn btn-default">
 			</form> 
 		</div>
 	</div>

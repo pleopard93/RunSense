@@ -56,22 +56,22 @@ body {
 
 .sign-in-form {
 	margin: 20px auto;
-	width: 70%;
+	width: 60%;
 	padding: 5%;
 }
 
 .create-account-form {
 	margin: 20px auto;
-	width: 70%;
-	padding: 15%;
+	width: 60%;
+	padding: 5%;
 }
 
 #create-account-form {
-	margin-top: 30px;
+	/*margin-top: 30px;*/
 }
 
 #sign-in-form {
-	margin-top: 30px;
+	/*margin-top: 30px;*/
 }
 
 .section-border {
