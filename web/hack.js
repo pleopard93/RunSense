@@ -17,7 +17,7 @@ function signInButton(){
 function createAccountSubmit(){
   signUpSubmit();
 }
-//***********************************
+
 function signUpSubmit(){
   window.location.href = "runSenseHome.html";
   var email = $("#email").val();
@@ -37,9 +37,7 @@ function signUpSubmit(){
       error: function (jqXHR, textStatus, errorThrown){
         console.log(jqXHR + ", " + textStatus + ", " + errorThrown)
       }
-    }
   });
-  //make sure this gets called
 }
 
 function removeSignUpButtons(){
@@ -155,11 +153,11 @@ function drawChart() {
         data_point.push(metrics["d1"]);
         data_point.push(metrics["d2"]);
         data_points.push(data_point);
-      },
+      }
+    },
       error: function (jqXHR, textStatus, errorThrown){
         console.log(jqXHR + ", " + textStatus + ", " + errorThrown)
       }
-    }
   });
   run_data.addRows(data_points);
   chart.draw(run_data, options);
@@ -188,11 +186,11 @@ function drawChart() {
         data_point.push(metrics["d1"]);
         data_point.push(metrics["d2"]);
         data_points.push(data_point);
-      },
+      }
+    },
       error: function (jqXHR, textStatus, errorThrown){
         console.log(jqXHR + ", " + textStatus + ", " + errorThrown)
       }
-    }
   });
   run_data.addRows(data_points);
   chart.draw(run_data, options);
