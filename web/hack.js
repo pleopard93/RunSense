@@ -30,6 +30,39 @@ function removeSignUpButtons(){
 	$('.sign-up').remove();
 }
 
+function mergeSort(steps)
+{
+    if (arr.length < 2)
+        return arr;
+ 
+    var middle = parseInt(arr.length / 2);
+    var left   = arr.slice(0, middle);
+    var right  = arr.slice(middle, arr.length);
+ 
+    return merge(mergeSort(left), mergeSort(right));
+}
+ 
+function merge(left, right)
+{
+    var result = [];
+ 
+    while (left.length && right.length) {
+        if (left[0]["stepNumber"] <= right[0]["stepNumber"]) {
+            result.push(left.shift());
+        } else {
+            result.push(right.shift());
+        }
+    }
+ 
+    while (left.length)
+        result.push(left.shift());
+ 
+    while (right.length)
+        result.push(right.shift());
+ 
+    return result;
+}
+
 function drawChart() {
 
   var options = {
@@ -93,13 +126,14 @@ function drawChart() {
   var data_points = [];
   var steps = [];
   $.get("api/index.php/getRun", function( data ){
-    steps = data["stepList"];
+    steps = mergeSort(data["stepList"]);
     for (var i = 0; i < steps.length; i++){
       var data_point = [];
       data_point.push(i);
       var metrics = steps[i]["metrics"];
       data_point.push(metrics["d1"]);
       data_point.push(metrics["d2"]);
+      data_points.push(data_point);
     }
   });
   run_data.addRows(data_points);
@@ -123,6 +157,7 @@ function drawChart() {
       var metrics = steps[i]["metrics"];
       data_point.push(metrics["d1"]);
       data_point.push(metrics["d2"]);
+      data_points.push(data_point);
     }
   });
   run_data.addRows(data_points);
