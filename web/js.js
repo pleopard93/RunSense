@@ -64,7 +64,7 @@ var newSteps = {
         error: function(jqXHR, textStatus, errorThrown){
            console.log(jqXHR, textStatus, errorThrown);
       }});
-
+*/
 
 
  $.ajax({
@@ -81,7 +81,7 @@ var newSteps = {
            console.log(jqXHR, textStatus, errorThrown);
       }});
 
-*/
+/*
 
  $.ajax({
         type: "POST",
@@ -97,7 +97,7 @@ var newSteps = {
            console.log(jqXHR, textStatus, errorThrown);
       }});
 
-
+*/
 
 function hello(){
   alert("hey");

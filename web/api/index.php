@@ -8,7 +8,7 @@ $app->post('/getRun', 'getRun');
 $app->post('/getAllRuns', 'getAllRuns');
 $app->post('/newUser', 'newUser');
 $app->post('/newRun', 'newRun');
-$app->get('/addSteps', 'addSteps');
+$app->post('/addSteps', 'addSteps');
 
 $app->run();
 
@@ -74,8 +74,8 @@ function addSteps(){
     $app = \Slim\Slim::getInstance();
     $con = getConnection();
 
-    $RunID = $_GET['RunID'];
-    $stepList = $_GET['stepList'];
+    $RunID = $_POST['RunID'];
+    $stepList = $_POST['stepList'];
 
     foreach($stepList as $step){
         $stepNumber = $step['stepNumber'];
@@ -85,9 +85,9 @@ function addSteps(){
 
         $sql_query = "INSERT INTO Run (RunID, StepNumber, StepType, Pronation, Metrics) VALUES ('$RunID', '$stepNumber', '$StepType', '$Pronation', '$metrics');";
             if ($con->query($sql_query) === TRUE) {
-                echo "Query Executed ".$sql_query;
+                echo "{result: 'success'}";
             } else {
-                echo "Error querying database ".$sql_query;
+                echo "{result: 'failure'}";
             }   
     }
 }
@@ -123,16 +123,20 @@ function getAllRuns(){
 
     $userID = $_POST["UserID"];
 
-    $sql = "SELECT UserID, UserRun.RunID, StepNumber, Foot, Metrics FROM UserRun JOIN Run ON UserRun.RunID = Run.RunID HAVING UserID = $userID;";
+    $sql = "SELECT UserID, UserRun.RunID, StepNumber, StepType, Pronation, Metrics FROM UserRun JOIN Run ON UserRun.RunID = Run.RunID HAVING UserID = $userID;";
     //echo $sql;
 
-    $result = $con->query($sql);
+    //$result = $con->query($sql);
     $rows = array();
-    if($result->num_rows > 0){
+    if($con->query($sql)->num_rows > 0){
+        $result = $con->query($sql);
         while($row = mysqli_fetch_assoc($result)){
             $rows[] = $row;
         }
         echo json_encode($rows);
+    }
+    else{
+        echo "no data";
     }
 }
 
