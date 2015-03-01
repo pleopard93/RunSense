@@ -27,9 +27,9 @@ function signUpSubmit(){
     type: "POST",
     url: "/api/index.php/newUser",
     dataType: "json",
-    data: {"Name": email,
-           "Email": email,
-           "Password": password
+    data: {"name": email,
+           "email": email,
+           "password": password
           },
     success: function( data ){
         userId = data["UserId"];
