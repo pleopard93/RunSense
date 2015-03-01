@@ -1,4 +1,4 @@
-userId = 2;
+userId = 1;
 
 function createAccountButton(){
 	console.log("create account");
@@ -20,10 +20,13 @@ function createAccountSubmit(){
   signUpSubmit();
 }
 
-function signUpSubmit(){
+function signUpSubmit(event){
+  event.preventDefault();
+  console.log("signupppp");
   window.location.href = "runSenseHome.html";
   var email = $("#email").val();
   var password = $("#password").val();
+  console.log("signupppp");
 
   $.ajax({
     type: "POST",
@@ -34,7 +37,9 @@ function signUpSubmit(){
            "password": password
           },
     success: function( data ){
+        alert("id: " + userId);
         userId = data["UserId"];
+        window.location = href("runSenseHome.html");
       },
       error: function (jqXHR, textStatus, errorThrown){
         console.log(jqXHR + ", " + textStatus + ", " + errorThrown)
