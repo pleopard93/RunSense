@@ -139,6 +139,9 @@ function drawChart() {
         data_point.push(metrics["d1"]);
         data_point.push(metrics["d2"]);
         data_points.push(data_point);
+      },
+      error: function (jqXHR, textStatus, errorThrown){
+        console.log(jqXHR + ", " + textStatus + ", " + errorThrown)
       }
     }
   });
@@ -169,6 +172,9 @@ function drawChart() {
         data_point.push(metrics["d1"]);
         data_point.push(metrics["d2"]);
         data_points.push(data_point);
+      },
+      error: function (jqXHR, textStatus, errorThrown){
+        console.log(jqXHR + ", " + textStatus + ", " + errorThrown)
       }
     }
   });
