@@ -196,7 +196,7 @@ static int rssi = 0;
     [self.CM scanForPeripheralsWithServices:nil options:nil]; // Start scanning
 #endif
     
-    //NSLog(@"scanForPeripheralsWithServices");
+    NSLog(@"scanForPeripheralsWithServices");
     
     return 0; // Started scanning OK !
 }

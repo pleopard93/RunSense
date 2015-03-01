@@ -182,6 +182,11 @@
     [self.connectButton setTitle:@"Connect" forState:UIControlStateNormal];
 }
 
+-(void) bleDidReceiveData:(unsigned char *)data length:(int)length
+{
+    NSLog(@"Length: %d. Data: %d", length, data[0]);
+}
+
 #pragma mark - Miscellaneous
 
 - (void)showAlertView:(NSString *)titleLabel withAlertText:(NSString *)alertText withCancelButton:(NSString *)cancelButtonTitle
