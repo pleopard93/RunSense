@@ -41,7 +41,7 @@ function newUser(){
 
     $sql_query = "INSERT INTO User (name, email, password) VALUES ('$name', '$email', '$password');";
     if ($con->query($sql_query) === TRUE) {
-        echo "Query Executed ".$sql_query;
+        echo "{UserID: $newUserID}";
     } else {
         echo "Error querying database ".$sql_query;
     }
@@ -60,7 +60,7 @@ function newRun(){
 
     $sql_query = "INSERT INTO UserRun (UserID) VALUES ($UserID);";
     if ($con->query($sql_query) === TRUE) {
-        echo "Query Executed ".$sql_query;
+        echo "{RunID: $newRunID}";
     } else {
         echo "Error querying database ".$sql_query;
     }
@@ -98,7 +98,7 @@ function getRun(){
     $con=getConnection();
     $userID = $_POST["UserID"];
 
-    $sql = "SELECT * FROM Run WHERE RunID IN (SELECT MAX(RunID) as latest_run FROM UserRun WHERE UserID = $userID);";
+    $sql = "SELECT * FROM Run WHERE RunID IN (SELECT MAX(RunID) as latest_run FROM UserRun WHERE UserID = $userID GROUP BY UserID);";
     //echo $sql;
     $result = $con->query($sql);
     $rows = array();
