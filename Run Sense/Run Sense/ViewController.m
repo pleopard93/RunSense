@@ -30,13 +30,16 @@
     
     heatColorsArray = [[NSArray alloc] initWithObjects:kColorZone1, kColorZone2, kColorZone3, nil];
     rollingStepsArray = [[NSMutableArray alloc] init];
-    stepDataArray = [[NSMutableArray alloc] init];
+    stepsListArray = [[NSMutableArray alloc] init];
     
     goodStepCount = 0;
     pranceStepCount = 0;
     heelStrikeCount = 0;
     overpronationStepCount = 0;
     underpronationStepCount = 0;
+    totalStepCount = 0;
+    
+    [self registerRun];
     
     [self setUpBLE];
 }
@@ -106,40 +109,114 @@
     self.footHeelImage.image = heatHeelImage;
 }
 
+#pragma mark - Actions
+
+- (IBAction)pushUpload:(id)sender
+{
+    [self uploadSteps];
+}
+
+#pragma mark - Run
+
+- (void)registerRun
+{
+    //NSDictionary *runInfo = [DataManager addNewRun];
+    
+    //runID = [runInfo objectForKey:@"RunID"];
+    
+    runID = @"0";
+}
+
 #pragma mark - Step
 
-- (void)analyzeStep:(NSMutableDictionary *)stepDictionary
+- (void)analyzeStep:(unsigned char *)data length:(int)length
 {
-    // 1 Left
-    // 2 Right
-    // 3 Heel
+    // First step down location, second step down location, delay between first two, first step up, second step up, delay between previous two
+    NSMutableDictionary *metricsDictionary = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *currentStepDictionary = [[NSMutableDictionary alloc] init];
+    NSString *stepType = @"";
+    NSString *pronationType = @"";
     
-    // Check for prancer and heel strike steps
-    if ([stepDictionary objectForKey:@"sd1"] != [NSNumber numberWithChar:3] && [stepDictionary objectForKey:@"sd2"] != [NSNumber numberWithChar:3] && [stepDictionary objectForKey:@"su1"] != [NSNumber numberWithChar:3] && [stepDictionary objectForKey:@"su2"] != [NSNumber numberWithChar:3]) {
+    // Analyze order of steps data
+    for (int i=0; i<length; i++) {
+        switch (i) {
+            case 0:
+                [metricsDictionary setObject:[NSNumber numberWithChar:data[i]] forKey:@"sd1"];
+                break;
+            case 1:
+                [metricsDictionary setObject:[NSNumber numberWithChar:data[i]] forKey:@"sd2"];
+                break;
+            case 2:
+                [metricsDictionary setObject:[NSNumber numberWithChar:data[i]] forKey:@"d1"];
+                break;
+            case 3:
+                [metricsDictionary setObject:[NSNumber numberWithChar:data[i]] forKey:@"su1"];
+                break;
+            case 4:
+                [metricsDictionary setObject:[NSNumber numberWithChar:data[i]] forKey:@"su2"];
+                break;
+            case 5:
+                [metricsDictionary setObject:[NSNumber numberWithChar:data[i]] forKey:@"d2"];
+                break;
+            default:
+                break;
+        }
+    }
+    
+    // 1 Left part of foot
+    // 2 Right part of foot
+    // 3 Heel of foot
+
+    // Check for prance and heel strike steps
+    if ([metricsDictionary objectForKey:@"sd1"] != [NSNumber numberWithChar:3] && [metricsDictionary objectForKey:@"sd2"] != [NSNumber numberWithChar:3] && [metricsDictionary objectForKey:@"su1"] != [NSNumber numberWithChar:3] && [metricsDictionary objectForKey:@"su2"] != [NSNumber numberWithChar:3]) {
+        // Prance
         pranceStepCount++;
-    } else if ([stepDictionary objectForKey:@"sd1"] == [NSNumber numberWithChar:3] && [stepDictionary objectForKey:@"d1"] > [NSNumber numberWithChar:20]) {
-        // Heel striker
+        stepType = @"Prance";
+    } else if ([metricsDictionary objectForKey:@"sd1"] == [NSNumber numberWithChar:3] && [metricsDictionary objectForKey:@"d1"] > [NSNumber numberWithChar:20]) {
+        // Heel strike
         heelStrikeCount++;
+        stepType = @"Heel strike";
         [self registerStep:[NSNumber numberWithInt:0]];
     }
     
     // Check for pronation
-    if ([stepDictionary objectForKey:@"sd1"] == [NSNumber numberWithChar:3] && [stepDictionary objectForKey:@"d2"] < [NSNumber numberWithChar:20]) {
+    if ([metricsDictionary objectForKey:@"sd1"] == [NSNumber numberWithChar:3] && [metricsDictionary objectForKey:@"d2"] < [NSNumber numberWithChar:20]) {
         // Good step
         goodStepCount++;
-    } else if ([stepDictionary objectForKey:@"sd2"] == [NSNumber numberWithChar:2] && [stepDictionary objectForKey:@"su1"] == [NSNumber numberWithChar:2] && [stepDictionary objectForKey:@"su2"] == [NSNumber numberWithChar:1]) {
-        // Overpronator
+        pronationType = @"Good";
+    } else if ([metricsDictionary objectForKey:@"sd2"] == [NSNumber numberWithChar:2] && [metricsDictionary objectForKey:@"su1"] == [NSNumber numberWithChar:2] && [metricsDictionary objectForKey:@"su2"] == [NSNumber numberWithChar:1]) {
+        // Overpronation
         overpronationStepCount++;
+        pronationType = @"Overpronation";
         [self registerStep:[NSNumber numberWithInt:1]];
-    } else if ([stepDictionary objectForKey:@"sd2"] == [NSNumber numberWithChar:2] && [stepDictionary objectForKey:@"su1"] == [NSNumber numberWithChar:1] && [stepDictionary objectForKey:@"su2"] == [NSNumber numberWithChar:2]) {
-        // Underpronator
+    } else if ([metricsDictionary objectForKey:@"sd2"] == [NSNumber numberWithChar:2] && [metricsDictionary objectForKey:@"su1"] == [NSNumber numberWithChar:1] && [metricsDictionary objectForKey:@"su2"] == [NSNumber numberWithChar:2]) {
+        // Underpronation
         underpronationStepCount++;
+        pronationType = @"Underpronation";
         [self registerStep:[NSNumber numberWithInt:2]];
     }
+    
+    // Save current step count
+    [currentStepDictionary setObject:[NSNumber numberWithInt:totalStepCount] forKey:@"stepNumber"];
+    
+    // Save current step data as metrics
+    [currentStepDictionary setObject:metricsDictionary forKey:@"metrics"];
+    
+    // Save current step type
+    [currentStepDictionary setObject:stepType forKey:@"StepType"];
+    
+    // Save current pronation type
+    [currentStepDictionary setObject:pronationType forKey:@"Pronation"];
+    
+    // Save current step data for upload
+    [stepsListArray addObject:currentStepDictionary];
 }
 
 - (void)registerStep:(NSNumber *)stepLocationID
 {
+    // Increment total step count
+    totalStepCount++;
+    
     // Keep track of last ten steps for heat map
     if ([rollingStepsArray count] < 10) {
         [rollingStepsArray addObject:stepLocationID];
@@ -205,6 +282,26 @@
     [self updateHeatMap:heelZone forLeft:overpronateZone forRight:underpronateZone];
 }
 
+- (void)uploadSteps
+{
+    NSMutableDictionary *uploadDictionary = [[NSMutableDictionary alloc] init];
+
+    [uploadDictionary setObject:runID forKey:@"runId"];
+    [uploadDictionary setObject:stepsListArray forKey:@"stepList"];
+
+    // Check if data was successfully uploaded
+    NSDictionary *resultDictionary = [DataManager addSteps:uploadDictionary];
+    
+    if ([[resultDictionary objectForKey:@"result"] isEqual: @"success"]) {
+        [self showAlertView:@"Upload Success" withAlertText:@"Successfully uploaded run data" withCancelButton:@"OK" withTag:0];
+        
+        // Disconnect from BLE device
+        [[ble CM] cancelPeripheralConnection:[ble activePeripheral]];
+    } else {
+        [self showAlertView:@"Upload Failed" withAlertText:@"Failed upload run data to server. Please try again." withCancelButton:@"Dismiss"];
+    }
+}
+
 #pragma mark - BLE
 
 - (void)setUpBLE
@@ -235,7 +332,7 @@
     [self.connectButton setTitle:@"Connecting..." forState:UIControlStateNormal];
 }
 
--(void) connectionTimer:(NSTimer *)timer
+- (void)connectionTimer:(NSTimer *)timer
 {
     [self.connectButton setEnabled:true];
     [self.connectButton setTitle:@"Disconnect" forState:UIControlStateNormal];
@@ -285,37 +382,7 @@
 
 - (void)bleDidReceiveData:(unsigned char *)data length:(int)length
 {
-    // First step down location, second step down location, delay between first two, first step up, second step up, delay between previous two
-    NSMutableDictionary *stepDictionary = [[NSMutableDictionary alloc] init];
-    
-    for (int i=0; i<length; i++) {
-        switch (i) {
-            case 0:
-                [stepDictionary setObject:[NSNumber numberWithChar:data[i]] forKey:@"sd1"];
-                break;
-            case 1:
-                [stepDictionary setObject:[NSNumber numberWithChar:data[i]] forKey:@"sd2"];
-                break;
-            case 2:
-                [stepDictionary setObject:[NSNumber numberWithChar:data[i]] forKey:@"d1"];
-                break;
-            case 3:
-                [stepDictionary setObject:[NSNumber numberWithChar:data[i]] forKey:@"su1"];
-                break;
-            case 4:
-                [stepDictionary setObject:[NSNumber numberWithChar:data[i]] forKey:@"su2"];
-                break;
-            case 5:
-                [stepDictionary setObject:[NSNumber numberWithChar:data[i]] forKey:@"d2"];
-                break;
-            default:
-                break;
-        }
-    }
-    
-    [self analyzeStep:stepDictionary];
-    
-    [stepDataArray addObject:stepDictionary];
+    [self analyzeStep:data length:length];
 }
 
 #pragma mark - Miscellaneous
@@ -329,5 +396,31 @@
                                           otherButtonTitles:nil];
     [alert show];
 }
+
+- (void)showAlertView:(NSString *)titleLabel withAlertText:(NSString *)alertText withCancelButton:(NSString *)cancelButtonTitle withTag:(NSInteger)tag
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:titleLabel
+                                                    message:alertText
+                                                   delegate:nil
+                                          cancelButtonTitle:cancelButtonTitle
+                                          otherButtonTitles:nil];
+    
+    [alert setTag:tag];
+    
+    [alert show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    switch (alertView.tag) {
+        case 0:
+            // Dismiss view controller after successful feedback
+            [self.navigationController popToRootViewControllerAnimated:TRUE];
+            break;
+        default:
+            break;
+    }
+}
+
 
 @end

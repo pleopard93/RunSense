@@ -8,19 +8,23 @@
 
 #import <UIKit/UIKit.h>
 #import "Definitions.h"
+#import "DataManager.h"
 #import "BLE.h"
 
-@interface ViewController : UIViewController <BLEDelegate>
+@interface ViewController : UIViewController <BLEDelegate, UIAlertViewDelegate>
 {
     NSArray *totalStepsArray;
     NSArray *heatColorsArray;
     NSMutableArray *rollingStepsArray;
-    NSMutableArray *stepDataArray;
+    NSMutableDictionary *stepDataDictionary;
+    NSMutableArray *stepsListArray;
+    NSString *runID;
     int goodStepCount;
     int overpronationStepCount;
     int underpronationStepCount;
     int pranceStepCount;
     int heelStrikeCount;
+    int totalStepCount;
 }
 
 @property (weak, nonatomic) IBOutlet UIButton *connectButton;
@@ -30,6 +34,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *footHeelImage;
 
 - (IBAction)pushConnectButton:(id)sender;
+- (IBAction)pushUpload:(id)sender;
 
 @end
 
