@@ -142,16 +142,16 @@ function drawChart() {
   var data_points = [];
   var steps = [];
   $.ajax({
-    type: "GET",
+    type: "POST",
     url: "api/index.php/getRun",
     dataType: "json",
     data: {"UserID": userId},
     success: function( data ){
-      steps = mergeSort(data["StepList"]);
+      steps = mergeSort(data["stepList"]);
       for (var i = 0; i < steps.length; i++){
         var data_point = [];
         data_point.push(i);
-        var metrics = steps[i]["Metrics"];
+        var metrics = steps[i]["metrics"];
         data_point.push(metrics["d1"]);
         data_point.push(metrics["d2"]);
         data_points.push(data_point);
@@ -175,16 +175,16 @@ function drawChart() {
   data_points = [];
   steps = [];
   $.ajax({
-    type: "GET",
+    type: "POST",
     url: "api/index.php/getAllRuns",
     dataType: "json",
     data: {"UserID": userId},
     success: function( data ){
-      steps = mergeSort(data["StepList"]);
+      steps = mergeSort(data["stepList"]);
       for (var i = 0; i < steps.length; i++){
         var data_point = [];
         data_point.push(i);
-        var metrics = steps[i]["Metrics"];
+        var metrics = steps[i]["metrics"];
         data_point.push(metrics["d1"]);
         data_point.push(metrics["d2"]);
         data_points.push(data_point);
