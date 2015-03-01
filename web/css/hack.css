@@ -57,13 +57,13 @@ body {
 .sign-in-form {
 	margin: 20px auto;
 	width: 60%;
-	padding: 5%;
+	padding-top: 5%;
 }
 
 .create-account-form {
 	margin: 20px auto;
 	width: 60%;
-	padding: 5%;
+	padding-top: 5%;
 }
 
 #create-account-form {

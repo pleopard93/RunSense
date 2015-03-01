@@ -12,7 +12,10 @@ function signInButton(){
   $('#sign-in-hidden-form').fadeTo(100, 0);
 	$('#sign-in-hidden-form').attr('class', 'sign-in-form section-border');
   $('#sign-in-hidden-form').fadeTo(1500, 1);
-	//CHECK USERNAME AND PASSWORD WITH DB
+}
+
+function createAccountSubmit(){
+
 }
 
 function removeSignUpButtons(){
@@ -45,7 +48,7 @@ function drawChart() {
         fontName: 'Raleway',
         fontSize: '26'
       },
-      title: 'Severity'
+      title: 'Magnitude'
     },
     legend: {
       position: 'right',
@@ -72,47 +75,48 @@ function drawChart() {
   all_data.addColumn('number', 'Heel Strike');
   all_data.addColumn('number', 'Pronation');
 
-    //LAST RUN
+  //LAST RUN
 
   var chart = new google.visualization.LineChart(document.getElementById('ex3'));
   chart.draw(run_data, options);
 
-  var data_points = [];
-  var first_point = 50;
-  var second_point = 60;
-  for (var i = 0; i < 300; i++) {
-    var data_point = [];
-    data_point.push(i);
-    first_point -= (Math.random()*5)-(Math.random()*5.1)
-    data_point.push(first_point);
-    second_point -= (Math.random()*4)-(Math.random()*4.1)
-    data_point.push(second_point);
-    data_points.push(data_point);
-  }
+  //DATA
 
+  var data_points = [];
+  $.get("index.php/getRun", function( data ){
+    for (var i = 0; i < data.length; i++){
+      var data_point = [];
+      data_point.push(i);
+      first_point = run_data['heelStrike'];
+      second_point = run_data['pronate'];
+      data_points.push(first_point);
+      data_points.push(second_point);
+    }
+  });
   run_data.addRows(data_points);
   chart.draw(run_data, options);
+
 
   //TOTAL RUNS
 
   var chart2 = new google.visualization.LineChart(document.getElementById('ex2'));
   chart2.draw(all_data, options);
 
-  data_points = [];
-  first_point = 50;
-  second_point = 60;
-  for (var i = 0; i < 1500; i++) {
-    var data_point = [];
-    data_point.push(i);
-    first_point -= (Math.random()*10)-(Math.random()*10.1)
-    data_point.push(first_point);
-    second_point -= (Math.random()*14)-(Math.random()*14.1)
-    data_point.push(second_point);
-    data_points.push(data_point);
-  }
+  //DATA
 
-  all_data.addRows(data_points);
-  chart2.draw(all_data, options);
+  data_points = [];
+  $.get("index.php/getAllRuns", function( data ){
+    for (var i = 0; i < data.length; i++){
+      var data_point = [];
+      data_point.push(i);
+      first_point = total_data['heelStrike'];
+      second_point = total_data['pronate'];
+      data_points.push(first_point);
+      data_points.push(second_point);
+    }
+  });
+  run_data.addRows(data_points);
+  chart.draw(run_data, options);
 }
 
 google.load('visualization', '1', {packages: ['corechart']});

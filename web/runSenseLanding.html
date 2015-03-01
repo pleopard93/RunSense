@@ -30,7 +30,7 @@
 			<button type="button" class="btn btn-default account-button" onclick="createAccountButton()">Create Account</button>
 		</div>
 		<div class="hidden" id="create-account-hidden-form">
-			<form id="create-account-form" action="index.php/newUser" method="get">
+			<form id="create-account-form" action="index.php/newUser" method="post">
 				<input type="text" class="form-control" placeholder="Name">
 				<br>
 				<input type="text" class="form-control" placeholder="Email">
@@ -43,7 +43,7 @@
 			</form> 
 		</div>
 		<div class="hidden" id="sign-in-hidden-form">
-			<form id="sign-in-form" action="index.php/newUser" method="get">
+			<form id="sign-in-form" action="index.php/newUser" method="post">
 				<input type="text" class="form-control" placeholder="Email">
 				<br>
 				<input type="password" class="form-control" placeholder="Password">
