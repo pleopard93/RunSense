@@ -14,6 +14,10 @@
 		7B09446E1AA26B7F0007DA7D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B09446D1AA26B7F0007DA7D /* Images.xcassets */; };
 		7B0944711AA26B7F0007DA7D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B09446F1AA26B7F0007DA7D /* LaunchScreen.xib */; };
 		7B09447D1AA26B7F0007DA7D /* Run_SenseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B09447C1AA26B7F0007DA7D /* Run_SenseTests.m */; };
+		7B0944871AA28F5A0007DA7D /* foot.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B0944861AA28F5A0007DA7D /* foot.png */; };
+		7B09448D1AA291FB0007DA7D /* Raleway.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7B09448C1AA291FB0007DA7D /* Raleway.ttf */; };
+		7B09448F1AA2A05F0007DA7D /* steps.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7B09448E1AA2A05F0007DA7D /* steps.txt */; };
+		7B0944941AA2C8C10007DA7D /* BLE.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0944921AA2C8C10007DA7D /* BLE.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +44,13 @@
 		7B0944761AA26B7F0007DA7D /* Run SenseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Run SenseTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B09447B1AA26B7F0007DA7D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7B09447C1AA26B7F0007DA7D /* Run_SenseTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Run_SenseTests.m; sourceTree = "<group>"; };
+		7B0944861AA28F5A0007DA7D /* foot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = foot.png; sourceTree = "<group>"; };
+		7B0944881AA291910007DA7D /* Definitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Definitions.h; sourceTree = "<group>"; };
+		7B09448C1AA291FB0007DA7D /* Raleway.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Raleway.ttf; sourceTree = "<group>"; };
+		7B09448E1AA2A05F0007DA7D /* steps.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = steps.txt; sourceTree = "<group>"; };
+		7B0944911AA2C8C10007DA7D /* BLE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLE.h; sourceTree = "<group>"; };
+		7B0944921AA2C8C10007DA7D /* BLE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLE.m; sourceTree = "<group>"; };
+		7B0944931AA2C8C10007DA7D /* BLEDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEDefines.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,8 +107,13 @@
 		7B0944601AA26B7F0007DA7D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				7B0944901AA2C8B20007DA7D /* BLE */,
+				7B0944861AA28F5A0007DA7D /* foot.png */,
 				7B0944611AA26B7F0007DA7D /* Info.plist */,
 				7B0944621AA26B7F0007DA7D /* main.m */,
+				7B0944881AA291910007DA7D /* Definitions.h */,
+				7B09448C1AA291FB0007DA7D /* Raleway.ttf */,
+				7B09448E1AA2A05F0007DA7D /* steps.txt */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -117,6 +133,16 @@
 				7B09447B1AA26B7F0007DA7D /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		7B0944901AA2C8B20007DA7D /* BLE */ = {
+			isa = PBXGroup;
+			children = (
+				7B0944911AA2C8C10007DA7D /* BLE.h */,
+				7B0944921AA2C8C10007DA7D /* BLE.m */,
+				7B0944931AA2C8C10007DA7D /* BLEDefines.h */,
+			);
+			name = BLE;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -199,9 +225,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B09448D1AA291FB0007DA7D /* Raleway.ttf in Resources */,
 				7B09446C1AA26B7F0007DA7D /* Main.storyboard in Resources */,
 				7B0944711AA26B7F0007DA7D /* LaunchScreen.xib in Resources */,
 				7B09446E1AA26B7F0007DA7D /* Images.xcassets in Resources */,
+				7B09448F1AA2A05F0007DA7D /* steps.txt in Resources */,
+				7B0944871AA28F5A0007DA7D /* foot.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -222,6 +251,7 @@
 				7B0944691AA26B7F0007DA7D /* ViewController.m in Sources */,
 				7B0944661AA26B7F0007DA7D /* AppDelegate.m in Sources */,
 				7B0944631AA26B7F0007DA7D /* main.m in Sources */,
+				7B0944941AA2C8C10007DA7D /* BLE.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
