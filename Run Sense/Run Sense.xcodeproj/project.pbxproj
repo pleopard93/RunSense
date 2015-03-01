@@ -18,6 +18,9 @@
 		7B09448D1AA291FB0007DA7D /* Raleway.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7B09448C1AA291FB0007DA7D /* Raleway.ttf */; };
 		7B09448F1AA2A05F0007DA7D /* steps.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7B09448E1AA2A05F0007DA7D /* steps.txt */; };
 		7B0944941AA2C8C10007DA7D /* BLE.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0944921AA2C8C10007DA7D /* BLE.m */; };
+		7B0944981AA339F80007DA7D /* foot_heel.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B0944951AA339F80007DA7D /* foot_heel.png */; };
+		7B0944991AA339F80007DA7D /* foot_left.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B0944961AA339F80007DA7D /* foot_left.png */; };
+		7B09449A1AA339F80007DA7D /* foot_right.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B0944971AA339F80007DA7D /* foot_right.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +54,9 @@
 		7B0944911AA2C8C10007DA7D /* BLE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLE.h; sourceTree = "<group>"; };
 		7B0944921AA2C8C10007DA7D /* BLE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLE.m; sourceTree = "<group>"; };
 		7B0944931AA2C8C10007DA7D /* BLEDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEDefines.h; sourceTree = "<group>"; };
+		7B0944951AA339F80007DA7D /* foot_heel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = foot_heel.png; sourceTree = "<group>"; };
+		7B0944961AA339F80007DA7D /* foot_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = foot_left.png; sourceTree = "<group>"; };
+		7B0944971AA339F80007DA7D /* foot_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = foot_right.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +113,9 @@
 		7B0944601AA26B7F0007DA7D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				7B0944951AA339F80007DA7D /* foot_heel.png */,
+				7B0944961AA339F80007DA7D /* foot_left.png */,
+				7B0944971AA339F80007DA7D /* foot_right.png */,
 				7B0944901AA2C8B20007DA7D /* BLE */,
 				7B0944861AA28F5A0007DA7D /* foot.png */,
 				7B0944611AA26B7F0007DA7D /* Info.plist */,
@@ -227,10 +236,13 @@
 			files = (
 				7B09448D1AA291FB0007DA7D /* Raleway.ttf in Resources */,
 				7B09446C1AA26B7F0007DA7D /* Main.storyboard in Resources */,
+				7B0944991AA339F80007DA7D /* foot_left.png in Resources */,
 				7B0944711AA26B7F0007DA7D /* LaunchScreen.xib in Resources */,
 				7B09446E1AA26B7F0007DA7D /* Images.xcassets in Resources */,
+				7B09449A1AA339F80007DA7D /* foot_right.png in Resources */,
 				7B09448F1AA2A05F0007DA7D /* steps.txt in Resources */,
 				7B0944871AA28F5A0007DA7D /* foot.png in Resources */,
+				7B0944981AA339F80007DA7D /* foot_heel.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -442,6 +454,7 @@
 				7B0944821AA26B7F0007DA7D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7B0944831AA26B7F0007DA7D /* Build configuration list for PBXNativeTarget "Run SenseTests" */ = {
 			isa = XCConfigurationList;
@@ -450,6 +463,7 @@
 				7B0944851AA26B7F0007DA7D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -13,16 +13,21 @@
 @interface ViewController : UIViewController <BLEDelegate>
 {
     NSArray *totalStepsArray;
+    NSArray *heatColorsArray;
     NSMutableArray *rollingStepsArray;
-    int heelCount;
-    int leftBallCount;
-    int rightBallCount;
+    NSMutableArray *stepDataArray;
+    int goodStepCount;
+    int overpronationStepCount;
+    int underpronationStepCount;
+    int pranceStepCount;
+    int heelStrikeCount;
 }
 
-@property (weak, nonatomic) IBOutlet UILabel *leftBallLabel;
-@property (weak, nonatomic) IBOutlet UILabel *rightBallLabel;
-@property (weak, nonatomic) IBOutlet UILabel *heelLabel;
 @property (weak, nonatomic) IBOutlet UIButton *connectButton;
+@property (weak, nonatomic) IBOutlet UIImageView *footImage;
+@property (weak, nonatomic) IBOutlet UIImageView *footLeftImage;
+@property (weak, nonatomic) IBOutlet UIImageView *footRightImage;
+@property (weak, nonatomic) IBOutlet UIImageView *footHeelImage;
 
 - (IBAction)pushConnectButton:(id)sender;
 

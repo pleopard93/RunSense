@@ -19,24 +19,6 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="foot.png" translatesAutoresizingMaskIntoConstraints="NO" id="dKv-az-uY3">
                                 <rect key="frame" x="71" y="100" width="179" height="368"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dWP-uF-Xyb">
-                                <rect key="frame" x="90" y="200" width="35" height="21"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lkO-qi-svb">
-                                <rect key="frame" x="145" y="412" width="40" height="21"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rsZ-Vg-TeW">
-                                <rect key="frame" x="183" y="200" width="30" height="21"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Azg-RG-eCf">
                                 <rect key="frame" x="16" y="518" width="288" height="30"/>
                                 <state key="normal" title="Connect">
@@ -46,6 +28,15 @@
                                     <action selector="pushConnectButton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="8MH-fI-bvy"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="foot_heel.png" translatesAutoresizingMaskIntoConstraints="NO" id="8fC-1O-Ifc">
+                                <rect key="frame" x="105" y="332" width="130" height="134"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="foot_left.png" translatesAutoresizingMaskIntoConstraints="NO" id="MEy-O1-LIV">
+                                <rect key="frame" x="61" y="162" width="116" height="108"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="foot_right.png" translatesAutoresizingMaskIntoConstraints="NO" id="2xs-Hm-C4c">
+                                <rect key="frame" x="142" y="146" width="107" height="125"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -53,9 +44,10 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="connectButton" destination="Azg-RG-eCf" id="Eq6-03-Dud"/>
-                        <outlet property="heelLabel" destination="lkO-qi-svb" id="zwW-xZ-vse"/>
-                        <outlet property="leftBallLabel" destination="dWP-uF-Xyb" id="2zm-ot-fO9"/>
-                        <outlet property="rightBallLabel" destination="rsZ-Vg-TeW" id="SvX-SU-srK"/>
+                        <outlet property="footHeelImage" destination="8fC-1O-Ifc" id="Tb5-Ue-Pp2"/>
+                        <outlet property="footImage" destination="dKv-az-uY3" id="qc6-58-JXm"/>
+                        <outlet property="footLeftImage" destination="MEy-O1-LIV" id="dZ4-FD-VwW"/>
+                        <outlet property="footRightImage" destination="2xs-Hm-C4c" id="kB3-Gg-U9X"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
@@ -84,5 +76,8 @@
     </scenes>
     <resources>
         <image name="foot.png" width="312" height="745"/>
+        <image name="foot_heel.png" width="931" height="1145"/>
+        <image name="foot_left.png" width="1190" height="1288"/>
+        <image name="foot_right.png" width="718" height="980"/>
     </resources>
 </document>

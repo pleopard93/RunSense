@@ -8,6 +8,10 @@
 
 #import "ViewController.h"
 
+#define kColorZone1 [UIColor colorWithRed:255.0/255.0f green:215.0/255.0f blue:0.0/255.0f alpha:1.0]
+#define kColorZone2 [UIColor colorWithRed:255.0/255.0f green:69.0/255.0f blue:0.0/255.0f alpha:1.0]
+#define kColorZone3 [UIColor colorWithRed:255.0/255.0f green:0.0/255.0f blue:0.0/255.0f alpha:1.0]
+
 @interface ViewController ()
 
 @property (strong, nonatomic) BLE *ble;
@@ -24,15 +28,15 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    totalStepsArray = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:1], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], [NSNumber numberWithInt:4], [NSNumber numberWithInt:0], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], [NSNumber numberWithInt:1], [NSNumber numberWithInt:4], [NSNumber numberWithInt:0], [NSNumber numberWithInt:4], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], [NSNumber numberWithInt:1], [NSNumber numberWithInt:0], [NSNumber numberWithInt:3], [NSNumber numberWithInt:2], [NSNumber numberWithInt:4], [NSNumber numberWithInt:1], [NSNumber numberWithInt:0], [NSNumber numberWithInt:3], [NSNumber numberWithInt:2], [NSNumber numberWithInt:1], [NSNumber numberWithInt:4], [NSNumber numberWithInt:0], [NSNumber numberWithInt:3], [NSNumber numberWithInt:4], [NSNumber numberWithInt:2], [NSNumber numberWithInt:1], [NSNumber numberWithInt:0], [NSNumber numberWithInt:2], [NSNumber numberWithInt:4], [NSNumber numberWithInt:3], [NSNumber numberWithInt:1], [NSNumber numberWithInt:0], [NSNumber numberWithInt:2], [NSNumber numberWithInt:4], [NSNumber numberWithInt:1], [NSNumber numberWithInt:3], [NSNumber numberWithInt:0], [NSNumber numberWithInt:2], [NSNumber numberWithInt:1], [NSNumber numberWithInt:4], [NSNumber numberWithInt:3], [NSNumber numberWithInt:0], [NSNumber numberWithInt:1], [NSNumber numberWithInt:2], [NSNumber numberWithInt:4], [NSNumber numberWithInt:3], [NSNumber numberWithInt:0], [NSNumber numberWithInt:1], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], [NSNumber numberWithInt:4], [NSNumber numberWithInt:0], [NSNumber numberWithInt:4], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], [NSNumber numberWithInt:1], [NSNumber numberWithInt:0], [NSNumber numberWithInt:1], [NSNumber numberWithInt:3], [NSNumber numberWithInt:4], [NSNumber numberWithInt:2], [NSNumber numberWithInt:0], [NSNumber numberWithInt:1], [NSNumber numberWithInt:3], [NSNumber numberWithInt:2], [NSNumber numberWithInt:4], [NSNumber numberWithInt:0], [NSNumber numberWithInt:4], [NSNumber numberWithInt:1], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], [NSNumber numberWithInt:0], [NSNumber numberWithInt:3], [NSNumber numberWithInt:2], [NSNumber numberWithInt:1], [NSNumber numberWithInt:4], [NSNumber numberWithInt:0], [NSNumber numberWithInt:3], [NSNumber numberWithInt:4], [NSNumber numberWithInt:1], [NSNumber numberWithInt:2], [NSNumber numberWithInt:0], [NSNumber numberWithInt:3], [NSNumber numberWithInt:1], [NSNumber numberWithInt:4], [NSNumber numberWithInt:2], [NSNumber numberWithInt:0], [NSNumber numberWithInt:2], [NSNumber numberWithInt:1], [NSNumber numberWithInt:4], [NSNumber numberWithInt:3], [NSNumber numberWithInt:0], [NSNumber numberWithInt:2], [NSNumber numberWithInt:1], [NSNumber numberWithInt:4], [NSNumber numberWithInt:3], [NSNumber numberWithInt:0], [NSNumber numberWithInt:1], [NSNumber numberWithInt:3], [NSNumber numberWithInt:4], [NSNumber numberWithInt:2], [NSNumber numberWithInt:0], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], [NSNumber numberWithInt:4], [NSNumber numberWithInt:1], [NSNumber numberWithInt:0], [NSNumber numberWithInt:3], [NSNumber numberWithInt:2], [NSNumber numberWithInt:1], [NSNumber numberWithInt:4], [NSNumber numberWithInt:0], [NSNumber numberWithInt:4], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], [NSNumber numberWithInt:1], [NSNumber numberWithInt:0], [NSNumber numberWithInt:1], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], [NSNumber numberWithInt:4], [NSNumber numberWithInt:0], [NSNumber numberWithInt:1], [NSNumber numberWithInt:3], [NSNumber numberWithInt:2], [NSNumber numberWithInt:4], [NSNumber numberWithInt:0], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], [NSNumber numberWithInt:1], [NSNumber numberWithInt:4], [NSNumber numberWithInt:0], [NSNumber numberWithInt:4], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], [NSNumber numberWithInt:1], [NSNumber numberWithInt:0], [NSNumber numberWithInt:3], [NSNumber numberWithInt:4], [NSNumber numberWithInt:2], nil];
-    
-    [self customizeAppearance];
-    
+    heatColorsArray = [[NSArray alloc] initWithObjects:kColorZone1, kColorZone2, kColorZone3, nil];
     rollingStepsArray = [[NSMutableArray alloc] init];
+    stepDataArray = [[NSMutableArray alloc] init];
     
-    heelCount = 0;
-    leftBallCount = 0;
-    rightBallCount = 0;
+    goodStepCount = 0;
+    pranceStepCount = 0;
+    heelStrikeCount = 0;
+    overpronationStepCount = 0;
+    underpronationStepCount = 0;
     
     [self setUpBLE];
 }
@@ -44,64 +48,161 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    //[self performSelectorInBackground:@selector(startRun) withObject:nil];
+
 }
 
 - (void)customizeAppearance
 {
-    [self.heelLabel setText:[NSString stringWithFormat:@"%d", heelCount]];
-    [self.leftBallLabel setText:[NSString stringWithFormat:@"%d", leftBallCount]];
-    [self.rightBallLabel setText:[NSString stringWithFormat:@"%d", rightBallCount]];
+    
 }
 
-#pragma mark - Heatmap
-
-- (void)updateLabel:(NSNumber *)stepLocation
+- (void)updateHeatMap:(int)heelZone forLeft:(int)leftZone forRight:(int)rightZone
 {
-    switch ([stepLocation integerValue]) {
-        case 1:
-            heelCount++;
-            float stepFloat = (float)heelCount+10;
-            [self.heelLabel setText:[NSString stringWithFormat:@"%d", heelCount]];
-            //[self.heelLabel setBackgroundColor:[UIColor colorWithRed:stepFloat/255.0f green:100.0/255.0f blue:100.0/255.0f alpha:1.0]];
-            self.heelLabel.backgroundColor = [UIColor colorWithRed:stepFloat/255.0f green:100.0/255.0f blue:100.0/255.0f alpha:1.0];
-            break;
-        case 2:
-            leftBallCount++;
-            [self.leftBallLabel setText:[NSString stringWithFormat:@"%d", leftBallCount]];
-            break;
-        case 3:
-            rightBallCount++;
-            [self.rightBallLabel setText:[NSString stringWithFormat:@"%d", rightBallCount]];
-            break;
-        default:
-            break;
-    }
+    // Left image
+    UIImage *loadImage = [UIImage imageNamed:@"foot_left.png"];
+    
+    CGRect rect = CGRectMake(0, 0, loadImage.size.width, loadImage.size.height);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextClipToMask(context, rect, loadImage.CGImage);
+    CGContextSetFillColorWithColor(context, [[heatColorsArray objectAtIndex:leftZone] CGColor]);
+    CGContextFillRect(context, rect);
+    UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    UIImage *heatLeftImage = [UIImage imageWithCGImage:img.CGImage
+                                                scale:1.0 orientation: UIImageOrientationDownMirrored];
+    
+    // Right image
+    loadImage = [UIImage imageNamed:@"foot_right.png"];
+    
+    rect = CGRectMake(0, 0, loadImage.size.width, loadImage.size.height);
+    UIGraphicsBeginImageContext(rect.size);
+    context = UIGraphicsGetCurrentContext();
+    CGContextClipToMask(context, rect, loadImage.CGImage);
+    CGContextSetFillColorWithColor(context, [[heatColorsArray objectAtIndex:rightZone] CGColor]);
+    CGContextFillRect(context, rect);
+    img = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    UIImage *heatRightImage = [UIImage imageWithCGImage:img.CGImage
+                                                scale:1.0 orientation: UIImageOrientationDownMirrored];
+    
+    // Heel image
+    loadImage = [UIImage imageNamed:@"foot_heel.png"];
+    
+    rect = CGRectMake(0, 0, loadImage.size.width, loadImage.size.height);
+    UIGraphicsBeginImageContext(rect.size);
+    context = UIGraphicsGetCurrentContext();
+    CGContextClipToMask(context, rect, loadImage.CGImage);
+    CGContextSetFillColorWithColor(context, [[heatColorsArray objectAtIndex:heelZone] CGColor]);
+    CGContextFillRect(context, rect);
+    img = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    UIImage *heatHeelImage = [UIImage imageWithCGImage:img.CGImage
+                                                  scale:1.0 orientation: UIImageOrientationDownMirrored];
+    
+    // Set new heated images
+    self.footLeftImage.image = heatLeftImage;
+    self.footRightImage.image = heatRightImage;
+    self.footHeelImage.image = heatHeelImage;
 }
 
-#pragma mark - Run Methods
+#pragma mark - Step
 
-- (void)startRun
+- (void)analyzeStep:(NSMutableDictionary *)stepDictionary
 {
-    for (NSNumber *stepLocation in totalStepsArray) {
-        [self takeStep:stepLocation];
-        
-        // Sleep for a set time
-        [NSThread sleepForTimeInterval:.1];
-    }
-}
-
-- (void)takeStep:(NSNumber *)stepLocation
-{
-    if ([rollingStepsArray count] < 20) {
-        [rollingStepsArray addObject:stepLocation];
-    } else {
-        [rollingStepsArray removeObjectAtIndex:0];
-        [rollingStepsArray addObject:stepLocation];
+    // 1 Left
+    // 2 Right
+    // 3 Heel
+    
+    // Check for prancer and heel strike steps
+    if ([stepDictionary objectForKey:@"sd1"] != [NSNumber numberWithChar:3] && [stepDictionary objectForKey:@"sd2"] != [NSNumber numberWithChar:3] && [stepDictionary objectForKey:@"su1"] != [NSNumber numberWithChar:3] && [stepDictionary objectForKey:@"su2"] != [NSNumber numberWithChar:3]) {
+        pranceStepCount++;
+    } else if ([stepDictionary objectForKey:@"sd1"] == [NSNumber numberWithChar:3] && [stepDictionary objectForKey:@"d1"] > [NSNumber numberWithChar:20]) {
+        // Heel striker
+        heelStrikeCount++;
+        [self registerStep:[NSNumber numberWithInt:0]];
     }
     
-    // Perform UI update on main thread
-    [self performSelectorOnMainThread:@selector(updateLabel:) withObject:stepLocation waitUntilDone:YES];
+    // Check for pronation
+    if ([stepDictionary objectForKey:@"sd1"] == [NSNumber numberWithChar:3] && [stepDictionary objectForKey:@"d2"] < [NSNumber numberWithChar:20]) {
+        // Good step
+        goodStepCount++;
+    } else if ([stepDictionary objectForKey:@"sd2"] == [NSNumber numberWithChar:2] && [stepDictionary objectForKey:@"su1"] == [NSNumber numberWithChar:2] && [stepDictionary objectForKey:@"su2"] == [NSNumber numberWithChar:1]) {
+        // Overpronator
+        overpronationStepCount++;
+        [self registerStep:[NSNumber numberWithInt:1]];
+    } else if ([stepDictionary objectForKey:@"sd2"] == [NSNumber numberWithChar:2] && [stepDictionary objectForKey:@"su1"] == [NSNumber numberWithChar:1] && [stepDictionary objectForKey:@"su2"] == [NSNumber numberWithChar:2]) {
+        // Underpronator
+        underpronationStepCount++;
+        [self registerStep:[NSNumber numberWithInt:2]];
+    }
+}
+
+- (void)registerStep:(NSNumber *)stepLocationID
+{
+    // Keep track of last ten steps for heat map
+    if ([rollingStepsArray count] < 10) {
+        [rollingStepsArray addObject:stepLocationID];
+    } else {
+        [rollingStepsArray removeObjectAtIndex:0];
+        [rollingStepsArray addObject:stepLocationID];
+    }
+    
+    [self prepareHeatzoneForUpdate];
+}
+
+- (void)prepareHeatzoneForUpdate
+{
+    int rollingHeelStrikeCount = 0;
+    int rollingOverpronateCount = 0;
+    int rollingUnderpronateCount = 0;
+    int heelZone = 0;
+    int overpronateZone = 0;
+    int underpronateZone = 0;
+    
+    // Count types of steps in rolling steps array
+    for (NSNumber *step in rollingStepsArray) {
+        switch ([step integerValue]) {
+            case 0:
+                rollingHeelStrikeCount++;
+                break;
+            case 1:
+                rollingOverpronateCount++;
+                break;
+            case 2:
+                rollingUnderpronateCount++;
+                break;
+            default:
+                break;
+        }
+    }
+    
+    // Count steps for heat zones
+    if (rollingHeelStrikeCount < 3) {
+        heelZone = 0;
+    } else if (rollingHeelStrikeCount >= 3 && rollingHeelStrikeCount < 5) {
+        heelZone = 1;
+    } else {
+        heelZone = 2;
+    }
+    
+    if (rollingOverpronateCount < 3) {
+        overpronateZone = 0;
+    } else if (rollingOverpronateCount >= 3 && rollingOverpronateCount < 5) {
+        overpronateZone = 1;
+    } else {
+        overpronateZone = 2;
+    }
+    
+    if (rollingUnderpronateCount < 3) {
+        underpronateZone = 0;
+    } else if (rollingUnderpronateCount >= 3 && rollingUnderpronateCount < 5) {
+        underpronateZone = 1;
+    } else {
+        underpronateZone = 2;
+    }
+    
+    [self updateHeatMap:heelZone forLeft:overpronateZone forRight:underpronateZone];
 }
 
 #pragma mark - BLE
@@ -157,7 +258,7 @@
         
         [self.connectButton setTitle:@"Connect" forState:UIControlStateNormal];
         
-        NSLog(@"Did not find hackdfw...");
+        NSLog(@"Did not find device...");
     } else {
         [self showAlertView:@"No known devices found" withAlertText:@"Could not find Bluetooth device" withCancelButton:@"Dismiss"];
         
@@ -182,9 +283,39 @@
     [self.connectButton setTitle:@"Connect" forState:UIControlStateNormal];
 }
 
--(void) bleDidReceiveData:(unsigned char *)data length:(int)length
+- (void)bleDidReceiveData:(unsigned char *)data length:(int)length
 {
-    NSLog(@"Length: %d. Data: %d", length, data[0]);
+    // First step down location, second step down location, delay between first two, first step up, second step up, delay between previous two
+    NSMutableDictionary *stepDictionary = [[NSMutableDictionary alloc] init];
+    
+    for (int i=0; i<length; i++) {
+        switch (i) {
+            case 0:
+                [stepDictionary setObject:[NSNumber numberWithChar:data[i]] forKey:@"sd1"];
+                break;
+            case 1:
+                [stepDictionary setObject:[NSNumber numberWithChar:data[i]] forKey:@"sd2"];
+                break;
+            case 2:
+                [stepDictionary setObject:[NSNumber numberWithChar:data[i]] forKey:@"d1"];
+                break;
+            case 3:
+                [stepDictionary setObject:[NSNumber numberWithChar:data[i]] forKey:@"su1"];
+                break;
+            case 4:
+                [stepDictionary setObject:[NSNumber numberWithChar:data[i]] forKey:@"su2"];
+                break;
+            case 5:
+                [stepDictionary setObject:[NSNumber numberWithChar:data[i]] forKey:@"d2"];
+                break;
+            default:
+                break;
+        }
+    }
+    
+    [self analyzeStep:stepDictionary];
+    
+    [stepDataArray addObject:stepDictionary];
 }
 
 #pragma mark - Miscellaneous
