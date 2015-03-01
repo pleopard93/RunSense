@@ -1,3 +1,5 @@
+userId = 2;
+
 function createAccountButton(){
 	console.log("create account");
 	removeSignUpButtons();
@@ -25,7 +27,7 @@ function signUpSubmit(){
 
   $.ajax({
     type: "POST",
-    url: "/api/index.php/newUser",
+    url: "api/index.php/newUser",
     dataType: "json",
     data: {"name": email,
            "email": email,
@@ -141,7 +143,7 @@ function drawChart() {
   var steps = [];
   $.ajax({
     type: "GET",
-    url: "/api/index.php/getRun",
+    url: "api/index.php/getRun",
     dataType: "json",
     data: {"UserID": userId},
     success: function( data ){
@@ -174,7 +176,7 @@ function drawChart() {
   steps = [];
   $.ajax({
     type: "GET",
-    url: "/api/index.php/getAllRuns",
+    url: "api/index.php/getAllRuns",
     dataType: "json",
     data: {"UserID": userId},
     success: function( data ){
