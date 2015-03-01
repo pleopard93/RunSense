@@ -45,7 +45,7 @@ function newUser(){
     } else {
         echo "Error querying database ".$sql_query;
     }
-
+    
     $con->close();
 
 }

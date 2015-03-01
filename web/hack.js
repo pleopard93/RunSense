@@ -15,6 +15,13 @@ function signInButton(){
 }
 
 function createAccountSubmit(){
+  alert("made it");
+  window.location.href = "runSenseHome.html";
+  $("#create-account-form").ajaxForm({url: 'api/index.php/newUser', type: 'post'});
+  
+}
+
+function signUpSubmit(){
 
 }
 
@@ -83,7 +90,7 @@ function drawChart() {
   //DATA
 
   var data_points = [];
-  $.get("index.php/getRun", function( data ){
+  $.get("api/index.php/getRun", function( data ){
     for (var i = 0; i < data.length; i++){
       var data_point = [];
       data_point.push(i);
@@ -105,7 +112,7 @@ function drawChart() {
   //DATA
 
   data_points = [];
-  $.get("index.php/getAllRuns", function( data ){
+  $.get("api/index.php/getAllRuns", function( data ){
     for (var i = 0; i < data.length; i++){
       var data_point = [];
       data_point.push(i);
