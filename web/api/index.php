@@ -79,10 +79,11 @@ function addSteps(){
 
     foreach($stepList as $step){
         $stepNumber = $step['stepNumber'];
-        $foot = $step['foot'];
+        $StepType = $step['StepType'];
+        $Pronation = $step['Pronation'];
         $metrics = $step['metrics'];
 
-        $sql_query = "INSERT INTO Run (RunID, StepNumber, Foot, Metrics) VALUES ('$RunID', '$stepNumber', '$foot', '$metrics');";
+        $sql_query = "INSERT INTO Run (RunID, StepNumber, StepType, Pronation, Metrics) VALUES ('$RunID', '$stepNumber', '$StepType', '$Pronation', '$metrics');";
             if ($con->query($sql_query) === TRUE) {
                 echo "Query Executed ".$sql_query;
             } else {
@@ -98,7 +99,7 @@ function getRun(){
     $con=getConnection();
     $userID = $_POST["UserID"];
 
-    $sql = "SELECT * FROM Run WHERE RunID IN (SELECT MAX(RunID) as latest_run FROM UserRun WHERE UserID = $userID GROUP BY UserID);";
+    $sql = "SELECT * FROM Run WHERE RunID IN (SELECT MAX(RunID) as latest_run FROM UserRun WHERE UserID = $userID GROUP BY RunID);";
     //echo $sql;
     $result = $con->query($sql);
     $rows = array();
